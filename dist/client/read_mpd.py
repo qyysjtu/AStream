@@ -132,7 +132,8 @@ def read_mpd(mpd_file, dashplayback):
             config_dash.JSON_HANDLE["video_metadata"]['playback_duration'] = dashplayback.playback_duration
         if MIN_BUFFER_TIME in root.attrib:
             dashplayback.min_buffer_time = get_playback_time(root.attrib[MIN_BUFFER_TIME])
-    format = 0;
+    
+    format = 0
     if "Period" in get_tag_name(root[0].tag):
         child_period = root[0]
         FORMAT = 0
@@ -174,7 +175,7 @@ def read_mpd(mpd_file, dashplayback):
                                     try:
                                         segment_size = float(segment_info.attrib['size']) * float(
                                             SIZE_DICT[segment_info.attrib['scale']])
-                                    except KeyError, e:
+                                    except (KeyError, e):
                                         config_dash.LOG.error("Error in reading Segment sizes :{}".format(e))
                                         continue
                                     media_object[bandwidth].segment_sizes.append(segment_size)
@@ -206,7 +207,7 @@ def read_mpd(mpd_file, dashplayback):
                 media_object[bandwidth].base_url = root[0].text
                 tempcut_url = root[0].text.split('/',3)[2:]
                 cut_url = tempcut_url[1]
-                print "cut_url = {}".format(cut_url)
+                print("cut_url = {}".format(cut_url))
                 #print root[0].text
                 for segment_info in representation:
                     if "SegmentBase" in get_tag_name(segment_info.tag):
@@ -221,13 +222,13 @@ def read_mpd(mpd_file, dashplayback):
                                 if "SegmentURL" in get_tag_name(segment_URL.tag):
                                     try:
                                         Ssize = segment_URL.attrib['media'].split('/')[0]
-                                        Ssize = Ssize.split('_')[-1];
-                                        Ssize = Ssize.split('kbit')[0];
+                                        Ssize = Ssize.split('_')[-1]
+                                        Ssize = Ssize.split('kbit')[0]
                                         #print "ssize"
                                         #print Ssize
                                         segment_size = float(Ssize) * float(
                                             SIZE_DICT["Kbits"])
-                                    except KeyError, e:
+                                    except (KeyError, e):
                                         config_dash.LOG.error("Error in reading Segment sizes :{}".format(e))
                                         continue
                                     segurl = cut_url + segment_URL.attrib['media']
@@ -239,6 +240,6 @@ def read_mpd(mpd_file, dashplayback):
 
     else:
 
-        print "Error: UknownFormat of MPD file!"
+        print( "Error: UknownFormat of MPD file!")
 
     return dashplayback, int(video_segment_duration)

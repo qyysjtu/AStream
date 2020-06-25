@@ -1,4 +1,3 @@
-__author__ = 'pjuluri'
 
 import config_dash
 

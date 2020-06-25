@@ -1,27 +1,7 @@
-#!/usr/bin/env python
-#
-#    AStream: Python based DASH player emulator to evaluate the rate adaptation algorithms
-#             for DASH.
-#    Copyright (C) 2015, Parikshit Juluri
-#
-#    This program is free software; you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation; either version 2 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License along
-#    with this program; if not, write to the Free Software Foundation, Inc.,
-#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-#
 
-import dash_buffer
 import time
 import copy
+import dash_buffer 
 
 SEGMENT = {'playback_length':4,
            'size': 1024,
@@ -51,11 +31,11 @@ def run_test(segment_arrival_times=SEGMENT_ARRIVAL_TIMES):
                 db.write(segment)
                 break
             if actual_time > arrival_time:
-                print "ERROR: Missed the time slot for segemt {}".format(count)
+                print("ERROR: Missed the time slot for segemt {}".format(count))
                 break
             time.sleep(1)
     if time.time() - start_time >= 40:
-        print "Killing the player after 40 seconds"
+        print("Killing the player after 40 seconds") 
         db.stop()
 
 

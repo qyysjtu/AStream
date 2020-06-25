@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 #
 #    AStream: Python based DASH player emulator to evaluate the rate adaptation algorithms
 #             for DASH.

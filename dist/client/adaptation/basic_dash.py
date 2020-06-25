@@ -1,7 +1,7 @@
-__author__ = 'pjuluri'
 
-import config_dash
-from adaptation import calculate_rate_index
+
+from config_dash import *
+from adaptation.adaptation import calculate_rate_index
 
 
 def basic_dash(segment_number, bitrates, average_dwn_time,
@@ -21,7 +21,7 @@ def basic_dash(segment_number, bitrates, average_dwn_time,
         updated_dwn_time = (average_dwn_time * (segment_number + 1) + segment_download_time) / (segment_number + 1)
     else:
         updated_dwn_time = segment_download_time
-    config_dash.LOG.debug("The average download time upto segment {} is {}. Before it was {}".format(segment_number,
+    LOG.debug("The average download time upto segment {} is {}. Before it was {}".format(segment_number,
                                                                                                      updated_dwn_time,
                                                                                                      average_dwn_time))
 
@@ -29,15 +29,15 @@ def basic_dash(segment_number, bitrates, average_dwn_time,
     bitrates.sort()
     try:
         sigma_download = average_dwn_time / segment_download_time
-        config_dash.LOG.debug("Sigma Download = {}/{} = {}".format(average_dwn_time, segment_download_time,
+        LOG.debug("Sigma Download = {}/{} = {}".format(average_dwn_time, segment_download_time,
                                                                    sigma_download))
     except ZeroDivisionError:
-        config_dash.LOG.error("Download time = 0. Unable to calculate the sigma_download")
+        LOG.error("Download time = 0. Unable to calculate the sigma_download")
         return curr_rate, updated_dwn_time
     try:
         curr = bitrates.index(curr_rate)
     except ValueError:
-        config_dash.LOG.error("Current Bitrate not in the bitrate lsit. Setting to minimum")
+        LOG.error("Current Bitrate not in the bitrate lsit. Setting to minimum")
         curr = calculate_rate_index(bitrates, curr_rate)
     next_rate = curr_rate
     if sigma_download < 1:

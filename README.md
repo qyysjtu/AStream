@@ -35,6 +35,9 @@ Sample Run
 ----------
 ```
 python dist/client/dash_client.py -m <URL TO MPD> -p <PlaybackType> 
+
+
+python dist/client/dash_client.py -m http://localhost/media/BigBuckBunny/BigBuckBunny_4s.mpd -p 'basic'
 ```
 
 Command Line options
